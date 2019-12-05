@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import createResource from "./fakeApi";
-import Post from "./components/post";
-import Section from "./components/section";
+import PostDetails from "./components/PostDetails";
+import Posts from "./components/Posts";
 
 const initialResource = createResource();
 function App() {
@@ -11,11 +11,11 @@ function App() {
     <Router>
       <Switch>
         <Route path="/post/:id">
-          <Post />
+          <PostDetails />
         </Route>
         <Route path="/">
           <Suspense fallback={<h1>Loading...</h1>}>
-            <Section component={Post} resource={initialResource.posts} />
+            <Posts resource={initialResource.posts} />
           </Suspense>
         </Route>
       </Switch>

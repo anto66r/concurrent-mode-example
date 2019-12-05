@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
-const PostDetail = () => {
+const PostDetails = () => {
   const { id } = useParams();
   return (
     <>
@@ -11,4 +11,4 @@ const PostDetail = () => {
   );
 };
 
-export default PostDetail;
+export default PostDetails;
