@@ -1,26 +1,31 @@
-import React, { Suspense } from "react";
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
-import createResource from "./fakeApi";
+import React, { Suspense, useState, useEffect } from "react";
+import { postsResource, postDetailsResource } from "./fakeApi";
 import PostDetails from "./components/PostDetails";
 import Posts from "./components/Posts";
 
-const initialResource = createResource();
-function App() {
-  // const [resource] = React.useState(initialResource)
-  return (
-    <Router>
-      <Switch>
-        <Route path="/post/:id">
-          <PostDetails />
-        </Route>
-        <Route path="/">
-          <Suspense fallback={<h1>Loading...</h1>}>
-            <Posts resource={initialResource.posts} />
-          </Suspense>
-        </Route>
-      </Switch>
-    </Router>
-  );
-}
+const postListResource = postsResource()
 
-export default App;
+function App() {
+  const [postId, setPostId] = useState()
+  const [detailResource, setDetailResource] = useState()
+  useEffect(() => {
+    console.log('useEffect', postId)
+    setDetailResource(postDetailsResource(postId))
+  }, [postId])
+  return (
+    <>
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <Posts resource={postListResource} handleClick={setPostId} />
+        {postId ? (
+          <Suspense fallback={<h1>Loading details...</h1>}>
+            <button onClick={() => setPostId()}>Reset</button>
+            <PostDetails resource={detailResource} postId={postId} />
+          </Suspense>
+        ) : (
+          <h2>Click on a post</h2>
+            )}
+      </Suspense>
+    </>
+  )
+}
+export default App

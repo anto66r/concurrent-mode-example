@@ -7,7 +7,6 @@
   "dependencies": {
     "react": "0.0.0-experimental-5faf377df",
     "react-dom": "0.0.0-experimental-5faf377df",
-    "react-router-dom": "5.1.2",
     "react-scripts": "3.0.1"
   },
   "devDependencies": {

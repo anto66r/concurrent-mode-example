@@ -1,10 +1,36 @@
-const posts = () => new Promise(
+const posts = () => {
+  console.log(`fetching post list`)
+  return new Promise(
     resolve => setTimeout(
-      () => resolve(fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(response => response.json())),
+      () => {
+        console.log(`done fetching post list`);
+        resolve(fetch('https://jsonplaceholder.typicode.com/posts')
+          .then(response => response.json()))
+      },
       2000
     )
-  )
+  )}
+
+const postDetails = id => {
+  console.log(`fetching post ${id}`)
+  return new Promise(
+    resolve => setTimeout(
+      () => {
+        console.log(`done fetching post ${id}`);
+        if (!id) {
+          resolve({})
+          return
+        }
+        resolve(
+          fetch(`https://jsonplaceholder.typicode.com/posts/${id}`).then(response =>
+            response.json()
+          )
+        )
+      },
+      2000
+    )
+  )}
+
 
 function wrapPromise(promise) {
   let status = "pending"
@@ -31,6 +57,7 @@ function wrapPromise(promise) {
   }
 }
 
-export default () => ({
-  posts: wrapPromise(posts())
-})
+const postsResource = () => wrapPromise(posts())
+const postDetailsResource = id => wrapPromise(postDetails(id))
+
+export { postDetailsResource, postsResource }

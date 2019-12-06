@@ -1,17 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-const Section = ({ resource }) => {
+const Posts = ({ resource, handleClick }) => {
   const items = resource.read();
   return (
-    <ul>
-      {items.map(({ title, id }) => (
-        <li key={id}>
-          <Link to={`/post/${id}`}>{title}</Link>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul style={{height: '300px', overflow: 'scroll'}}>
+        {items.map(({ title, id }) => (
+          <li key={id} onClick={() => handleClick(id)}>
+            {title}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 
-export default Section;
+export default Posts

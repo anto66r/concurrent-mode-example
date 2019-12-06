@@ -1,12 +1,12 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
 
-const PostDetails = () => {
-  const { id } = useParams();
+const PostDetails = ({ resource, postId }) => {
+  console.log('postDetails', postId, resource)
+  const details = resource.read()
   return (
     <>
-      <Link to="/">Back</Link>
-      <h1>{id}</h1>
+      <h1>{details.title}</h1>
+      <p>{details.body}</p>
     </>
   );
 };
